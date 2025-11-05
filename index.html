@@ -86,6 +86,7 @@
       width: 100%;
       overflow: hidden;
       animation: fadeInUp 0.6s ease;
+      box-sizing: border-box;
     }
 
     @keyframes fadeInUp {
@@ -126,7 +127,7 @@
     }
 
     .qr-section {
-      padding: 40px 24px;
+      padding: 40px 16px;
       text-align: center;
       background: var(--white);
     }
@@ -134,18 +135,21 @@
     .qr-wrapper {
       position: relative;
       display: inline-block;
-      margin-bottom: 24px;
+      margin: 0 auto 24px;
+      max-width: 100%;
     }
 
     .qr-code {
-      max-width: 280px;
-      width: 100%;
+      max-width: 300px;
+      width: calc(100% - 32px);
       height: auto;
       border-radius: 16px;
       box-shadow: 0 8px 24px var(--shadow);
       background: var(--white);
-      padding: 16px;
+      padding: 20px;
       display: block;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
 
     .qr-label {
@@ -160,6 +164,7 @@
       color: var(--text-light);
       line-height: 1.6;
       margin-bottom: 24px;
+      padding: 0 8px;
     }
 
     .actions {
@@ -374,18 +379,82 @@
       display: block;
     }
 
-    /* Responsividade para telas muito pequenas */
-    @media (max-width: 380px) {
+    /* Responsividade para iPhone SE, 8, etc (telas pequenas) */
+    @media (max-width: 400px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        max-width: 100%;
+      }
+
       .header h1 {
         font-size: 24px;
       }
 
+      .header {
+        padding: 28px 20px;
+      }
+
+      .qr-section {
+        padding: 32px 8px;
+      }
+
+      .qr-wrapper {
+        padding: 0;
+        width: 100%;
+      }
+
       .qr-code {
-        max-width: 240px;
+        max-width: 280px;
+        width: calc(100% - 16px);
+        padding: 18px;
+        margin: 0 auto;
+      }
+
+      .qr-label {
+        font-size: 16px;
+        padding: 0 12px;
+      }
+
+      .qr-description {
+        font-size: 13px;
+        padding: 0 12px;
       }
 
       .feature-grid {
         grid-template-columns: 1fr;
+      }
+
+      .actions {
+        padding: 0 12px 28px;
+      }
+
+      .btn {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+    }
+
+    /* Responsividade para iPhone Mini, telas MUITO pequenas */
+    @media (max-width: 360px) {
+      body {
+        padding: 12px;
+      }
+
+      .qr-code {
+        max-width: 240px;
+        width: calc(100% - 8px);
+        padding: 14px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .actions {
+        padding: 0 8px 24px;
       }
     }
 
