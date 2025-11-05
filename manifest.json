@@ -1,0 +1,28 @@
+{
+  "name": "Bruno Lemos Silva - Cartão Digital",
+  "short_name": "Bruno Lemos",
+  "description": "Cartão de visita digital de Bruno Lemos Silva, Product Manager na First Solutions",
+  "start_url": "/contact/",
+  "display": "standalone",
+  "background_color": "#0047BB",
+  "theme_color": "#0047BB",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "qr_contact_brunolemossilva.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "qr_contact_brunolemossilva.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "utilities"],
+  "lang": "pt-PT",
+  "dir": "ltr",
+  "prefer_related_applications": false
+}

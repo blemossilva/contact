@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bruno Lemos">
+  <meta name="theme-color" content="#0047BB">
+
+  <meta name="description" content="Cartão de Visita Digital - Bruno Lemos Silva, Product Manager na First Solutions">
+  <meta name="keywords" content="Bruno Lemos Silva, First Solutions, Hepic, Product Manager, Business Card, vCard">
+  <meta name="author" content="Bruno Lemos Silva">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blemossilva.github.io/contact/">
+  <meta property="og:title" content="Bruno Lemos Silva - Cartão Digital">
+  <meta property="og:description" content="Product Manager na First Solutions. Escaneie para adicionar contacto.">
+  <meta property="og:image" content="https://blemossilva.github.io/contact/qr_contact_brunolemossilva.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://blemossilva.github.io/contact/">
+  <meta property="twitter:title" content="Bruno Lemos Silva - Cartão Digital">
+  <meta property="twitter:description" content="Product Manager na First Solutions">
+  <meta property="twitter:image" content="https://blemossilva.github.io/contact/qr_contact_brunolemossilva.png">
+
+  <!-- Apple Icons -->
+  <link rel="apple-touch-icon" href="qr_contact_brunolemossilva.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="qr_contact_brunolemossilva.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="qr_contact_brunolemossilva.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="qr_contact_brunolemossilva.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="qr_contact_brunolemossilva.png">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <title>Bruno Lemos Silva - Cartão Digital</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary: #0047BB;
+      --secondary: #003D82;
+      --light: #F0F4F8;
+      --white: #FFFFFF;
+      --text: #1A202C;
+      --text-light: #4A5568;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Remover scroll bounce no iOS */
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 420px;
+      width: 100%;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header h2 {
+      font-size: 16px;
+      font-weight: 400;
+      opacity: 0.95;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .qr-section {
+      padding: 40px 24px;
+      text-align: center;
+      background: var(--white);
+    }
+
+    .qr-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .qr-code {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px var(--shadow);
+      background: var(--white);
+      padding: 16px;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .qr-description {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 24px 32px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(0, 71, 187, 0.3);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:active {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 71, 187, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--light);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:active {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-icon {
+      font-size: 20px;
+    }
+
+    .features {
+      padding: 24px;
+      background: var(--light);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .features h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .feature-item {
+      background: var(--white);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .feature-item-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .feature-item-text {
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .contact-info {
+      padding: 24px;
+      background: var(--white);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 8px 0;
+      background: var(--light);
+      border-radius: 10px;
+      font-size: 14px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s ease;
+    }
+
+    .contact-item:active {
+      transform: scale(0.98);
+      background: #E2E8F0;
+    }
+
+    .contact-item a {
+      color: var(--primary);
+      text-decoration: none;
+      flex: 1;
+    }
+
+    .contact-icon {
+      font-size: 20px;
+      margin-right: 12px;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    .footer {
+      padding: 20px 24px;
+      text-align: center;
+      background: var(--light);
+      font-size: 13px;
+      color: var(--text-light);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .footer strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Instruções de instalação */
+    .install-hint {
+      background: #FFF3CD;
+      border-left: 4px solid #FFC107;
+      padding: 16px;
+      margin: 16px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #856404;
+      line-height: 1.5;
+    }
+
+    .install-hint strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    /* Badge "Adicionar ao Ecrã Inicial" */
+    .add-to-home {
+      display: none;
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 20px;
+      margin: 16px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Mostrar hint apenas se não for standalone */
+    @media not all and (display-mode: standalone) {
+      .add-to-home {
+        display: block;
+      }
+    }
+
+    /* Ajustes para iPhone notch */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* Loading state */
+    .loading {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      z-index: 1000;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
+    /* Responsividade para telas muito pequenas */
+    @media (max-width: 380px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .qr-code {
+        max-width: 240px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Modo escuro (iOS) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --light: #2D3748;
+        --white: #1A202C;
+        --text: #F7FAFC;
+        --text-light: #CBD5E0;
+        --shadow: rgba(0, 0, 0, 0.3);
+      }
+
+      body {
+        background: linear-gradient(135deg, #002461 0%, #001C3D 100%);
+      }
+
+      .qr-code {
+        background: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .contact-item {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">Carregando...</div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Bruno Lemos Silva</h1>
+      <h2>Product Manager</h2>
+      <p>First Solutions</p>
+    </div>
+
+    <!-- QR Code Section -->
+    <div class="qr-section">
+      <div class="qr-label">📱 Escaneie para Adicionar Contacto</div>
+      <div class="qr-wrapper">
+        <img
+          src="qr_contact_brunolemossilva.png"
+          alt="QR Code - Bruno Lemos Silva vCard"
+          class="qr-code"
+          loading="eager"
+        >
+      </div>
+      <p class="qr-description">
+        Use a câmara do seu smartphone para escanear o QR Code e adicionar o meu contacto automaticamente.
+      </p>
+    </div>
+
+    <!-- Hint para adicionar ao ecrã inicial -->
+    <div class="add-to-home">
+      <strong>💡 Dica:</strong> Adicione esta página ao ecrã inicial do iPhone para acesso rápido!<br>
+      <small>Toque em <strong>⎙</strong> → "Adicionar ao Ecrã Inicial"</small>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <a href="BrunoLemosSilva.vcf" class="btn btn-primary" download>
+        <span class="btn-icon">📥</span>
+        Download vCard (.vcf)
+      </a>
+
+      <button class="btn btn-secondary" onclick="shareContact()">
+        <span class="btn-icon">📤</span>
+        Partilhar Contacto
+      </button>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <h3>Como Funciona</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-item-icon">📷</div>
+          <div class="feature-item-text">Escanear QR Code</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">📥</div>
+          <div class="feature-item-text">Download vCard</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">📤</div>
+          <div class="feature-item-text">Partilhar Link</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item-icon">💾</div>
+          <div class="feature-item-text">Guardar Contacto</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Info Quick Links -->
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <a href="tel:+351967865855">+351 967 865 855</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <a href="mailto:bruno.lemos@first-global.com">bruno.lemos@first-global.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">💼</span>
+        <a href="https://linkedin.com/in/bruno-lemos" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🌐</span>
+        <a href="https://www.first-global.com" target="_blank" rel="noopener">first-global.com</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <strong>Hepic</strong> - Your strategic ally in infection prevention<br>
+      <small style="margin-top: 8px; display: block;">© 2025 First Solutions</small>
+    </div>
+  </div>
+
+  <script>
+    // Web Share API
+    async function shareContact() {
+      const shareData = {
+        title: 'Bruno Lemos Silva - Contacto',
+        text: 'Adicione o contacto de Bruno Lemos Silva, Product Manager na First Solutions',
+        url: 'https://blemossilva.github.io/contact/BrunoLemosSilva.vcf'
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          console.log('Partilhado com sucesso');
+        } else {
+          // Fallback: Copiar link
+          await navigator.clipboard.writeText(shareData.url);
+          alert('✅ Link copiado para a área de transferência!');
+        }
+      } catch (err) {
+        console.log('Erro ao partilhar:', err);
+        // Fallback silencioso
+        try {
+          await navigator.clipboard.writeText('https://blemossilva.github.io/contact/BrunoLemosSilva.vcf');
+          alert('📋 Link copiado!');
+        } catch {
+          alert('Não foi possível partilhar. Copie manualmente: https://blemossilva.github.io/contact/BrunoLemosSilva.vcf');
+        }
+      }
+    }
+
+    // Detectar se é standalone (instalado)
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      console.log('App instalada no ecrã inicial');
+      // Esconder hint de instalação
+      document.querySelector('.add-to-home').style.display = 'none';
+    }
+
+    // Service Worker para PWA (cache offline)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(
+          registration => {
+            console.log('Service Worker registrado:', registration.scope);
+          },
+          err => {
+            console.log('Falha ao registrar Service Worker:', err);
+          }
+        );
+      });
+    }
+
+    // Preload da imagem QR
+    window.addEventListener('load', () => {
+      const img = new Image();
+      img.src = 'qr_contact_brunolemossilva.png';
+    });
+
+    // Analytics (opcional - adicione Google Analytics ou similar)
+    // gtag('event', 'page_view', { page_path: '/contact/' });
+
+    // Feedback visual ao tocar nos botões
+    document.querySelectorAll('.btn, .contact-item').forEach(el => {
+      el.addEventListener('touchstart', function() {
+        this.style.opacity = '0.7';
+      });
+      el.addEventListener('touchend', function() {
+        this.style.opacity = '1';
+      });
+    });
+  </script>
+</body>
+</html>
